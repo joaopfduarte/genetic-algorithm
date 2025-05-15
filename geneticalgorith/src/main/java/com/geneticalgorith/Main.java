@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        final int N = 800;
+        final int N = 20;
         final int POP_SIZE = 1000;
         final int MAX_GEN = 1000;
         final double CROSSOVER_RATE = 0.8;

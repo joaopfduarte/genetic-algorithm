@@ -22,7 +22,6 @@ public class NRainhasInd {
     }
 
     private void calcFitness() {
-        // Conta conflitos diagonais
         fitness = 0;
         for (int i = 0; i < genes.length; i++) {
             for (int j = i + 1; j < genes.length; j++) {
