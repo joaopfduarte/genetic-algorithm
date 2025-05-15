@@ -1,16 +1,14 @@
-package com.geneticalgorith;
+package com.geneticalgorithm;
 
-import com.geneticalgorith.interfaces.Ind;
-
-import java.util.Random;
-import java.util.random.*;
-import java.util.List;
+import com.geneticalgorithm.interfaces.Ind;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class NRainhasInd implements Ind {
     private int[] genes;
     private int n;
-    Random rand = new Random();
+    private Random rand = new Random();
 
     public NRainhasInd(int n) {
         if (n <= 0) {
@@ -20,29 +18,59 @@ public class NRainhasInd implements Ind {
         this.genes = new int[n];
 
         for (int i = 0; i < n; i++) {
-            genes[i] = rand.nextInt(n - 1);
+            genes[i] = rand.nextInt(n); 
+    }
+
+    @Override
+    public List<Ind> recombinar(Ind ind) {
+        List<Ind> filhos = new ArrayList<>();
+
+        if (!(ind instanceof NRainhasInd)) {
+            return filhos;
         }
 
+        NRainhasInd outroIndividuo = (NRainhasInd) ind;
+
+        int pontoCorte = rand.nextInt(n);
+
+        int[] filho1Genes = new int[n];
+        int[] filho2Genes = new int[n];
+
+        for (int i = 0; i < pontoCorte; i++) {
+            filho1Genes[i] = this.genes[i];
+            filho2Genes[i] = outroIndividuo.genes[i];
+        }
+        for (int i = pontoCorte; i < n; i++) {
+            filho1Genes[i] = outroIndividuo.genes[i];
+            filho2Genes[i] = this.genes[i];
+        }
+
+        NRainhasInd filho1 = new NRainhasInd(n, filho1Genes);
+        NRainhasInd filho2 = new NRainhasInd(n, filho2Genes);
+
+        filhos.add(filho1);
+        filhos.add(filho2);
+
+        return filhos;
     }
 
-    public List recombinar(Ind ind) {
-
-    }
-
+    @Override
     public Ind mutar() {
-        List<Integer> genesList = new ArrayList<>();
-        for (int gene : this.genes) {
-            genesList.add(gene);
-        }
+        int[] novosGenes = this.genes.clone();
+        int posicaoMutacao = rand.nextInt(n);
+        novosGenes[posicaoMutacao] = rand.nextInt(n);
 
-        int posicaoMutacao = rand.nextInt(this.n);
-        genesList.set(posicaoMutacao, rand.nextInt(this.n));
+        return new NRainhasInd(n, novosGenes);
+    }
 
-        NRainhasInd mutante = new NRainhasInd(this.n);
-        for (int i = 0; i < this.n; i++) {
-            mutante.genes[i] = genesList.get(i);
-        }
+    private NRainhasInd(int n, int[] genes) {
+        this.n = n;
+        this.genes = genes.clone();
+    }
 
-        return mutante;
+    public double getAvaliacao() {
+        double colisao = 0;
+        
+        return colisao;
     }
 }
