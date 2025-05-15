@@ -1,76 +1,78 @@
-package com.geneticalgorithm;
+package com.geneticalgorith;
 
-import com.geneticalgorithm.interfaces.Ind;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class NRainhasInd implements Ind {
+import java.util.*;
+
+public class NRainhasInd {
     private int[] genes;
-    private int n;
-    private Random rand = new Random();
+    private int fitness;
 
-    public NRainhasInd(int n) {
-        if (n <= 0) {
-            throw new IllegalArgumentException("Tamanho inválido de N");
-        }
-        this.n = n;
-        this.genes = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            genes[i] = rand.nextInt(n); 
-    }
-
-    @Override
-    public List<Ind> recombinar(Ind ind) {
-        List<Ind> filhos = new ArrayList<>();
-
-        if (!(ind instanceof NRainhasInd)) {
-            return filhos;
-        }
-
-        NRainhasInd outroIndividuo = (NRainhasInd) ind;
-
-        int pontoCorte = rand.nextInt(n);
-
-        int[] filho1Genes = new int[n];
-        int[] filho2Genes = new int[n];
-
-        for (int i = 0; i < pontoCorte; i++) {
-            filho1Genes[i] = this.genes[i];
-            filho2Genes[i] = outroIndividuo.genes[i];
-        }
-        for (int i = pontoCorte; i < n; i++) {
-            filho1Genes[i] = outroIndividuo.genes[i];
-            filho2Genes[i] = this.genes[i];
-        }
-
-        NRainhasInd filho1 = new NRainhasInd(n, filho1Genes);
-        NRainhasInd filho2 = new NRainhasInd(n, filho2Genes);
-
-        filhos.add(filho1);
-        filhos.add(filho2);
-
-        return filhos;
-    }
-
-    @Override
-    public Ind mutar() {
-        int[] novosGenes = this.genes.clone();
-        int posicaoMutacao = rand.nextInt(n);
-        novosGenes[posicaoMutacao] = rand.nextInt(n);
-
-        return new NRainhasInd(n, novosGenes);
-    }
-
-    private NRainhasInd(int n, int[] genes) {
-        this.n = n;
+    public NRainhasInd(int[] genes) {
         this.genes = genes.clone();
+        calcFitness();
     }
 
-    public double getAvaliacao() {
-        double colisao = 0;
-        
-        return colisao;
+    public int[] getGenes() {
+        return genes.clone();
+    }
+
+    public int getFitness() {
+        return fitness;
+    }
+
+    private void calcFitness() {
+        // Conta conflitos diagonais
+        fitness = 0;
+        for (int i = 0; i < genes.length; i++) {
+            for (int j = i + 1; j < genes.length; j++) {
+                if (Math.abs(genes[i] - genes[j]) == Math.abs(i - j)) {
+                    fitness++;
+                }
+            }
+        }
+    }
+
+    public void mutate() {
+        Random rand = new Random();
+        int i = rand.nextInt(genes.length);
+        int j = rand.nextInt(genes.length);
+        int temp = genes[i];
+        genes[i] = genes[j];
+        genes[j] = temp;
+        calcFitness();
+    }
+
+    public NRainhasInd crossover(NRainhasInd other) {
+        Random rand = new Random();
+        int n = genes.length;
+        int[] childGenes = new int[n];
+
+        int start = rand.nextInt(n);
+        int end = rand.nextInt(n - start) + start;
+
+        Set<Integer> used = new HashSet<>();
+
+        for (int i = start; i <= end; i++) {
+            childGenes[i] = this.genes[i];
+            used.add(childGenes[i]);
+        }
+
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            if (i >= start && i <= end)
+                continue;
+            while (used.contains(other.genes[index])) {
+                index++;
+            }
+            childGenes[i] = other.genes[index++];
+        }
+
+        return new NRainhasInd(childGenes);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(genes);
     }
 }
