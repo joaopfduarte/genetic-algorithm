@@ -1,4 +1,4 @@
-package com.geneticalgorith;
+package com.geneticalgorith.first_implementation;
 
 import java.util.*;
 
