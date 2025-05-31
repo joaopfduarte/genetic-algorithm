@@ -4,12 +4,12 @@ import java.util.*;
 
 public class MainAg {
     public static void main(String[] args) {
-        int nRainhas = 4;
-        int tamanhoPopulacao = 100;
-        int maxGeracoes = 1000;
+        int nRainhas = 16;
+        int tamanhoPopulacao = 60;
+        int maxGeracoes = 10000;
         double taxaMutacao = 0.2;
         double taxaCrossover = 0.8;
-        int elitismo = 5;
+        int elitismo = 8;
 
         NRainhasIndFactory factory = new NRainhasIndFactory(nRainhas);
         List<Ind> populacao = new ArrayList<>();
