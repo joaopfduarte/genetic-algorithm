@@ -6,7 +6,7 @@ import com.geneticalgorith.final_implementation.base.Ind;
 
 public class MainAg {
     public static void main(String[] args) {
-        int nRainhas = 16;
+        int nRainhas = 14;
         int tamanhoPopulacao = 60;
         int maxGeracoes = 10000;
         double taxaMutacao = 0.2;
@@ -17,7 +17,7 @@ public class MainAg {
         List<Ind> populacao = new ArrayList<>();
 
         for (int i = 0; i < tamanhoPopulacao; i++) {
-            populacao.add(factory.getInstance());
+            populacao.add(factory.getIndividuoAleatorio());
         }
 
         for (int geracao = 0; geracao < maxGeracoes; geracao++) {
@@ -63,6 +63,18 @@ public class MainAg {
             if (melhor.getAvaliacao() == 0) {
                 System.out.println("Solução encontrada!");
                 System.out.println("Posições das rainhas: " + Arrays.toString(((NRainhasInd) melhor).genes));
+
+                System.out.println("Tabuleiro:");
+                for (int linha = 0; linha < nRainhas; linha++) {
+                    for (int coluna = 0; coluna < nRainhas; coluna++) {
+                        if (((NRainhasInd) melhor).genes[coluna] == linha) {
+                            System.out.print("Q ");
+                        } else {
+                            System.out.print(". ");
+                        }
+                    }
+                    System.out.println();
+                }
                 break;
             }
         }
