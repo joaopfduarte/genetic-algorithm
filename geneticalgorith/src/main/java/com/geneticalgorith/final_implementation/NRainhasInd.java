@@ -14,14 +14,6 @@ public class NRainhasInd  implements Ind{
         this.genes = Arrays.copyOf(genes, n);
     }
 
-    /*public NRainhasInd(int n) {
-        this.n = n;
-        this.genes = new int[n];
-        for (int i = 0; i < n; i++) {
-            genes[i] = rand.nextInt(n);
-        }
-    }*/
-
     public List<Ind> recombinar(Ind ind) {
         List<Ind> filhos = new ArrayList<>();
 

@@ -1,17 +1,17 @@
-package com.geneticalgorith.final_implementation.dixonpriceFunction;
+package com.geneticalgorith.final_implementation.langermannFunction;
 
 import java.util.Random;
 
 import com.geneticalgorith.final_implementation.base.Ind;
 import com.geneticalgorith.final_implementation.base.IndFactory;
 
-public class DixonPriceIndFactory implements IndFactory {
+public class LangermannFunctionIndFactory implements IndFactory {
     private final int n;
     private final Random rand = new Random();
 
-    public DixonPriceIndFactory(int n) {
-        if (n <= 0) {
-            throw new IllegalArgumentException("N deve ser maior que zero");
+    public LangermannFunctionIndFactory(int n) {
+        if (n != 2) {
+            throw new IllegalArgumentException("N deve ser igual à 02");
         }
         this.n = n;
     }
@@ -20,10 +20,10 @@ public class DixonPriceIndFactory implements IndFactory {
     public Ind getIndividuoAleatorio() {
         double[] genes = new double[this.n];
         for (int i = 0; i < this.n; i++) {
-            genes[i] = -2 + rand.nextDouble() * 4;
+            genes[i] = -10 + rand.nextDouble() * 20;
         }
 
-        return new DixonPriceInd(n, genes);
+        return new LangermannInd(n, genes);
     }
 
 }
