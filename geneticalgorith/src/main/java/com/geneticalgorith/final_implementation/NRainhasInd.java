@@ -2,6 +2,8 @@ package com.geneticalgorith.final_implementation;
 
 import java.util.*;
 
+import com.geneticalgorith.final_implementation.base.Ind;
+
 public class NRainhasInd  implements Ind{
     Random rand = new Random();
     private int n;

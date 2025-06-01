@@ -2,6 +2,9 @@ package com.geneticalgorith.final_implementation;
 
 import java.util.Random;
 
+import com.geneticalgorith.final_implementation.base.Ind;
+import com.geneticalgorith.final_implementation.base.IndFactory;
+
 public class NRainhasIndFactory implements IndFactory{
     private final int n;
     private final Random rand = new Random();

@@ -2,6 +2,8 @@ package com.geneticalgorith.final_implementation;
 
 import java.util.*;
 
+import com.geneticalgorith.final_implementation.base.Ind;
+
 public class MainAg {
     public static void main(String[] args) {
         int nRainhas = 16;

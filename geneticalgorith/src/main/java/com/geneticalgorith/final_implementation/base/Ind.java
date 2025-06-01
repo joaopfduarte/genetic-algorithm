@@ -1,4 +1,4 @@
-package com.geneticalgorith.final_implementation;
+package com.geneticalgorith.final_implementation.base;
 import java.util.*;
 
 public interface Ind {
